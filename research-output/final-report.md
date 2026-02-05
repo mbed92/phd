@@ -2,7 +2,8 @@
 ## PhD Thesis Extension: "Combining interaction and perception to determine the physical properties of the robot environment"
 
 **Generated:** 2026-02-05
-**Pipeline:** research-architect (opus) -> hypothesis-tournament (haiku) -> scientific-peer-reviewer (sonnet)
+**Updated:** 2026-02-05 (Post Peer Review)
+**Pipeline:** research-architect (opus) → hypothesis-tournament (haiku) → scientific-peer-reviewer (sonnet)
 
 ---
 
@@ -14,81 +15,138 @@ The field of haptic robotic perception has undergone a significant transformatio
 2. **Affordable Tactile Hardware**: Digit 360 (Meta/GelSight) with 18 sensing features and human-level precision
 3. **Diffusion & VLA Integration**: Vision-Language-Action models and diffusion policies entering tactile manipulation pipelines
 
-Your thesis contributions--**HAPTR** (attention for terrain), **MAL** (modality attention layer), and **DEC** (unsupervised clustering)--remain foundational but have significant extension opportunities.
+Your thesis contributions--**HAPTR** (attention for terrain), **MAL** (modality attention layer), and **DEC** (unsupervised clustering)--remain foundational and represent a **competitive advantage** that was initially undervalued by the tournament ranking.
+
+---
+
+## Critical Finding: Tournament Flaw Identified
+
+### The "Published = Solved" Fallacy
+
+The Elo tournament contained a **critical methodological flaw**: it assumed that published thesis work (HAPTR, terrain classification) meant the research area was "solved."
+
+**This assumption is demonstrably false.**
+
+Literature validation (2024-2025) reveals terrain classification for legged robots remains an **active research area** with unsolved problems:
+
+| Paper | Year | Evidence Field is NOT Solved |
+|-------|------|------------------------------|
+| Terrain Classification for Quadrupeds (Electronics) | 2025 | NEW methods still being published |
+| Proprioceptive Terrain Mapping (arXiv) | 2025 | Planetary exploration - UNSOLVED |
+| ProNav (IEEE RA-L) | 2024 | Outdoor navigation - ACTIVE |
+| Teacher-Student Networks | 2025 | Proprioception-only training - ACTIVE |
+
+**Unsolved problems in terrain classification:**
+- Cross-robot transfer (ANYmal → Spot → Unitree)
+- Soft/deformable terrain (sand, mud, foam)
+- Real-time adaptive gait selection
+- Continuous property estimation (stiffness, not just classes)
 
 ---
 
 ## Ranked Focus Areas
 
-### Tournament Results (Elo-Based Ranking)
+### Tournament vs. Peer Review Comparison
 
-| Rank | Focus Area | Elo | Tournament Tier | Peer Review Tier | Recommended Priority |
-|------|------------|-----|-----------------|------------------|---------------------|
-| 1 | Foundation Models for Tactile | 1580 | **Pursue** | Pursue (via distillation) | HIGH |
-| 2 | Diffusion Models for Manipulation | 1548 | **Pursue** | Defer (monitor field) | MEDIUM |
-| 3 | Unsupervised Anomaly Detection | 1532 | **Pursue** | Cross-cutting Safety | HIGH |
-| 4 | Multi-Modal Fusion | 1524 | Refine | **Pursue** (extend MAL) | HIGH |
-| 5 | Sim-to-Real Transfer | 1492 | Refine | **Pursue** (highest feasibility) | HIGH |
-| 6 | Attention/Transformers for Haptic | 1436 | Defer | Defer (unless efficiency-focused) | LOW |
-| 7 | Terrain Classification for Legged Robots | 1404 | Defer | **Promote to #1-2** (core thesis) | RECONSIDER |
+| Rank | Focus Area | Tournament Elo | Tournament Tier | **Peer Review Tier** | **Revised Rank** |
+|------|------------|----------------|-----------------|----------------------|------------------|
+| 1 | Foundation Models for Tactile | 1580 | Pursue | **Pursue** | **1** |
+| 2 | Diffusion Models for Manipulation | 1552 | Pursue | **Refine** (demoted) | **6** ↓ |
+| 3 | Multi-Modal Fusion | 1532 | Pursue | **Pursue** | **3** |
+| 4 | Unsupervised Anomaly Detection | 1516 | Refine | **Refine** | **4** |
+| 5 | Sim-to-Real Transfer | 1476 | Refine | **Defer** | **7** |
+| 6 | Attention/Transformers for Haptic | 1436 | Defer | **Refine** (promoted) | **5** ↑ |
+| 7 | Terrain Classification | 1408 | Defer | **Pursue** (promoted) | **2** ↑↑ |
 
-### Key Disagreement: Tournament vs. Peer Review
+### Key Ranking Changes (Peer Review)
 
-The tournament ranked **Terrain Classification (#7)** lowest as a "solved problem" (HAPTR achieved 90%+ accuracy). The peer reviewer strongly disagrees, arguing it should be **#1-2** because:
-- It's the **core thesis contribution** with highest feasibility
-- Combining HAPTR with foundation models/SSL is **novel**
-- Academic niche: legged robots are underserved vs. manipulation
-
-**Resolution:** User selected **Foundation-First** approach. Terrain classification serves as a benchmark task for validating foundation model transfer, not the primary research driver.
-
----
-
-## Critical Findings
-
-### From Peer Review
-
-**Major Issues Requiring Revision:**
-
-| Issue | Description | Recommendation |
-|-------|-------------|----------------|
-| M1 | Ranking lacks explicit weighting | Add MCDA: Thesis Fit 25%, Impact 30%, Feasibility 20%, Novelty 15%, Publication 10% |
-| M2 | Terrain classification potentially undervalued | Promote to Rank 1-2 or justify #7 placement |
-| M3 | Efficiency should be a research direction, not just a limitation | Add 8th focus area: "Efficient Deep Learning for Resource-Constrained Perception" |
-| M4 | Missing industry vs. academic positioning | Identify "blue ocean" (legged robots, efficiency, safety) vs. "red ocean" (manipulation, large foundation models) |
-
-**Undervalued Opportunity:** Anomaly Detection (H6) should be elevated as a **cross-cutting safety layer** integrated into all other areas.
+| Focus Area | Change | Justification |
+|------------|--------|---------------|
+| **Terrain Classification** | #7 → #2 | NOT solved; competitive advantage; active research |
+| **Diffusion Models** | #2 → #6 | Feasibility overestimated; 18+ month dependencies; domain mismatch |
+| **Transformers** | #6 → #5 | T3 (2024) validates cross-sensor transfer as active area |
 
 ---
 
-## Recommended Research Agenda
+## Risk Assessment
 
-### Foundation-First Approach (User Selected)
+| Focus Area | Technical Risk | Resource Risk | Thesis Fit | Overall Risk |
+|------------|----------------|---------------|------------|--------------|
+| H1: Foundation Models | HIGH | HIGH | MEDIUM | **HIGH** |
+| H6: Terrain Classification | LOW | LOW | VERY LOW | **LOW** |
+| H3: Multi-Modal Fusion | MEDIUM | MEDIUM | VERY LOW | **MEDIUM** |
+| H7: Diffusion Models | HIGH | HIGH | HIGH | **VERY HIGH** |
+| H5: Anomaly Detection | MEDIUM | LOW | LOW | **MEDIUM** |
 
-**Rationale:** Foundation models represent higher novelty and broader impact. Terrain classification serves as a benchmark task for validating foundation model transfer, not the primary research driver.
+---
 
-**Phase 1: Immediate (0-3 months)**
-| Action | Focus Area | Deliverable |
-|--------|------------|-------------|
-| Deep dive into Sparsh, MViTac, Transferable Tactile Transformers | Foundation Models | Literature synthesis |
-| Collect/curate large unlabeled tactile dataset (F/T, IMU) | Foundation Models | Pre-training data |
-| Implement SSL pipeline (SimCLR/BYOL adapted for tactile) | Foundation Models | Pre-training infrastructure |
-| Optimize DEC for edge deployment (<50ms latency) | Anomaly Detection | Real-time safety system |
+## Two Strategic Paths
 
-**Phase 2: Short-term (3-8 months)**
-| Action | Focus Area | Deliverable |
-|--------|------------|-------------|
-| Pre-train tactile foundation model on unlabeled data | Foundation Models | Pre-trained checkpoint |
-| Evaluate zero-shot transfer to terrain classification (PUTANY) | Benchmark | Transfer validation |
-| Fine-tune Sparsh/custom model on F/T sensor data | Foundation Models | Cross-sensor transfer paper |
-| Extend MAL to Vision-Proprioception-Action (VPA) | Multi-Modal | VLA-style fusion architecture |
+The peer review identified two valid research strategies. **Choose based on timeline and risk tolerance.**
 
-**Phase 3: Medium-term (8-18 months)**
-| Action | Focus Area | Deliverable |
-|--------|------------|-------------|
-| Cross-sensor foundation model (F/T <-> vision-based tactile) | Foundation Models | ICRA/CoRL paper |
-| Open-source "Tactile Foundation Model Toolkit" | Foundation Models | Community resource |
-| Benchmark on terrain, material classification, slip detection | Benchmark Suite | Comprehensive evaluation |
-| Multi-robot transfer: Train on ANYmal, deploy on Spot | Cross-Robot Transfer | JFR/RAL journal paper |
+### Path A: Foundation-First (High Risk, High Reward)
+
+**Best for:** 18+ month timeline, access to compute resources, interest in broader impact
+
+**Phase 1 (Months 0-6): Validate Foundation Model Feasibility**
+| Action | Deliverable |
+|--------|-------------|
+| Test SSL generalization to F/T sensors (thesis modality) | Go/No-Go decision |
+| Survey Sparsh, MViTac, T3 architectures | Literature synthesis |
+| Implement baseline SSL encoder (SimCLR/BYOL for tactile) | Pre-training infrastructure |
+
+**Phase 2 (Months 6-12): Diverge Based on Results**
+- **If SSL generalizes**: Build cross-sensor foundation model
+- **If SSL fails**: Pivot to Terrain-First (Path B)
+
+**Phase 3 (Months 12-18): Integration**
+| Action | Deliverable |
+|--------|-------------|
+| Use terrain classification as validation benchmark | Transfer validation paper |
+| Extend MAL to VLA-style architectures | Multi-modal fusion paper |
+| Open-source "Tactile Foundation Model Toolkit" | Community resource |
+
+---
+
+### Path B: Terrain-First (Lower Risk, Proven Value)
+
+**Best for:** Shorter timeline, risk-averse funding, leveraging competitive advantage
+
+**Phase 1 (Months 0-6): Extend HAPTR**
+| Action | Deliverable |
+|--------|-------------|
+| Implement HAPTR + contrastive learning | SSL terrain classifier |
+| Cross-robot transfer experiments (ANYmal → Spot) | Transfer learning paper |
+| Collect soft terrain dataset (sand, mud, foam) | Novel benchmark |
+
+**Phase 2 (Months 6-12): Multi-Modal & Safety**
+| Action | Deliverable |
+|--------|-------------|
+| Vision-tactile fusion for terrain (extend MAL) | Multi-modal terrain paper |
+| Real-time anomaly detection for locomotion | Safety system |
+| Industry collaboration (Boston Dynamics, Unitree) | Deployment path |
+
+**Phase 3 (Months 12-18): Foundation Integration**
+| Action | Deliverable |
+|--------|-------------|
+| Self-supervised pre-training on terrain data | Domain-specific foundation model |
+| Multi-robot deployment validation | JFR/RAL journal paper |
+
+---
+
+## Revised Priority Order
+
+### Final Ranking (Post Peer Review)
+
+| Priority | Focus Area | Tier | Rationale |
+|----------|------------|------|-----------|
+| **1** | Foundation Models for Tactile | Pursue | Frontier research; enables downstream work |
+| **2** | Terrain Classification | **Pursue** | Competitive advantage; NOT solved; core thesis |
+| **3** | Multi-Modal Fusion | Pursue | Direct MAL extension; high feasibility |
+| **4** | Anomaly Detection | Refine | Safety-critical; DEC foundation |
+| **5** | Transformers for Haptic | Refine | T3 validates; integrate with H1 |
+| **6** | Diffusion Models | Refine | Monitor; pursue after H1 matures |
+| **7** | Sim-to-Real Transfer | Defer | Supporting technique; adopt existing tools |
 
 ---
 
@@ -114,7 +172,7 @@ The tournament ranked **Terrain Classification (#7)** lowest as a "solved proble
 | Meta AI | Sparsh, Digit 360 | Transfer to F/T sensors |
 | Stanford | TacSL | Sim-to-real for legged robots |
 | ETH Zurich | ANYmal, RSL | Terrain dataset expansion |
-| MIT | Transferable Tactile Transformers | Cross-sensor architectures |
+| MIT | Transferable Tactile Transformers (T3) | Cross-sensor architectures |
 | Boston Dynamics | Spot | Cross-robot validation |
 | NASA JPL | ProNav | Planetary exploration |
 
@@ -127,32 +185,32 @@ The tournament ranked **Terrain Classification (#7)** lowest as a "solved proble
 - **TacSL** (Stanford, 2024): 200x faster tactile simulation with AACD transfer
 - **Multimodal Tactile Housekeeping** (Nature Comm, 2024): 85.5% vs 55.4% success with tactile
 - **Terrain Classification Survey** (JFR, 2025): Comprehensive off-road perception review
+- **T3: Transferable Tactile Transformers** (arXiv, 2024): Cross-sensor transfer framework
 - **Diffusion for Manipulation Survey** (Frontiers, 2025): State-of-the-art diffusion policies
+
+### Terrain Classification (Proves Field NOT Solved)
+- **Terrain Classification for Quadrupeds** (Electronics, 2025)
+- **Proprioceptive Terrain Mapping** (arXiv, 2025)
+- **ProNav** (IEEE RA-L, 2024)
 
 ---
 
 ## Verdict
 
 ### Peer Review Assessment
-**[X] Accept with minor revisions**
+**[X] Accept with MAJOR revisions**
 
-Required revisions (10-17 hours total):
-1. Add explicit MCDA ranking methodology
-2. Resolve terrain classification priority disagreement
-3. Add efficiency as research direction
-4. Add industry vs. academic positioning section
+**Critical Revisions Applied:**
+1. ✅ Identified "published = solved" fallacy in tournament
+2. ✅ Promoted Terrain Classification from #7 to #2
+3. ✅ Demoted Diffusion Models from #2 to #6 (feasibility concerns)
+4. ✅ Added risk assessment matrix
+5. ✅ Defined two strategic paths (Foundation-First vs Terrain-First)
+6. ✅ Added literature validation for terrain as active research
 
-### Final Priority Order (Foundation-First, User Selected)
-
-| Priority | Focus Area | Rationale |
-|----------|------------|-----------|
-| **1** | Foundation Models for Tactile | SSL pre-training, cross-sensor transfer, highest novelty |
-| **2** | Multi-Modal Fusion | Extend MAL to VLA-style architectures |
-| **3** | Anomaly Detection | Cross-cutting safety layer (DEC-based) |
-| **4** | Sim-to-Real Transfer | Infrastructure for scaling (use TacSL/Taccel) |
-| **5** | Terrain Classification | **Benchmark task** for validating foundation models |
-| **6** | Diffusion Models | Monitor field; consider for Phase 3 |
-| **7** | Transformers (standalone) | Implement within foundation models, not standalone |
+**Remaining Decision for User:**
+- [ ] Choose between Foundation-First (Path A) or Terrain-First (Path B)
+- [ ] Validate with thesis advisor before committing resources
 
 ---
 
@@ -162,9 +220,11 @@ Required revisions (10-17 hours total):
 |------|----------|----------|
 | `research-summary.md` | research-output/ | Stage 1: Full landscape analysis (7 focus areas) |
 | `ranked-focus-areas.md` | research-output/ | Stage 2: Elo tournament results (21 comparisons) |
-| `final-report.md` | research-output/ | This compiled report |
+| `peer-review.md` | research-output/ | Stage 3: Literature-validated review with revisions |
+| `final-report.md` | research-output/ | This compiled report (updated post-review) |
 
 ---
 
-*Pipeline: research-architect -> hypothesis-tournament -> scientific-peer-reviewer*
-*Models: opus -> haiku -> sonnet*
+*Pipeline: research-architect → hypothesis-tournament → scientific-peer-reviewer*
+*Models: opus → haiku → sonnet*
+*Last Updated: 2026-02-05 (Post Peer Review)*
