@@ -30,14 +30,18 @@ This skill orchestrates a three-stage research exploration pipeline with control
 
 ```
 ┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────────┐
-│  research-architect │────▶│ hypothesis-tournament │────▶│ scientific-peer-reviewer │
-│  (opus, plan mode)  │     │   (haiku, bypassPermissions) │   (sonnet, plan mode)     │
-│  WebSearch enabled  │     │   No external access  │     │   Read-only review       │
+│  research-architect │────▶│ hypothesis-tournament │═══▶│ scientific-peer-reviewer │
+│  (opus, plan mode)  │     │   (haiku, isolated)  │     │   (sonnet, refinement)   │
+│  WebSearch enabled  │     │   No external access  │     │   WebSearch + Write      │
 └─────────────────────┘     └──────────────────────┘     └─────────────────────────┘
-         │                            │                            │
-         ▼                            ▼                            ▼
-   research-summary.md         ranked-focus-areas.md         peer-review.md
+         │                            │                     ║ (offline handoff)
+         ▼                            ▼                     ▼
+   research-summary.md         ranked-focus-areas.md ═══▶ peer-review.md
+                                (input to reviewer)        (refined ranking +
+                                                            recommendations)
 ```
+
+**Key:** `═══▶` indicates offline/sequential handoff. Ranking must complete before review begins.
 
 ## Stage Configurations
 
@@ -126,27 +130,39 @@ Run an Elo-based tournament to rank focus areas by research importance.
 
 ---
 
-### Stage 3: Peer Review
+### Stage 3: Peer Review & Refinement
 
 **Agent:** `scientific-peer-reviewer`
 **Model:** `sonnet` (balanced depth/speed)
-**Mode:** `plan` (advisory, no modifications)
+**Mode:** `plan` (advisory, produces recommendations)
+
+**Input Handoff:** Receives `ranked-focus-areas.md` as offline input after Stage 2 completes. The ranking is final from the tournament; reviewer works within this scope.
 
 **Allowed Tools:**
 - `Read` - access all previous outputs
-- `WebSearch` - verify claims against literature
+- `Write` - produce refined ranking and recommendations
+- `WebSearch`, `WebFetch` - validate claims, find supporting evidence, discover recent developments
 
 **Disallowed Tools:**
-- `Write`, `Edit`, `Bash`, `Task` - review only
+- `Edit`, `Bash`, `Task` - no system modifications or spawning
+
+**Scope Constraint:** The reviewer MUST stay within the focus areas identified in the ranking. Do NOT introduce entirely new research directions. Refinements, re-ordering, and recommendations must relate to the existing focus areas.
 
 **Task prompt:**
 ```
-Provide rigorous scientific peer review of the ranked research focus areas.
+Review and refine the ranked research focus areas. You receive the tournament ranking as offline input.
 
-**Review Checklist:**
-1. □ Validate ranking methodology and Elo calculations
-2. □ Check for ranking biases or overlooked factors
-3. □ Assess each focus area against 7 evaluation dimensions:
+**Your Role:**
+You are a scientific peer reviewer with web access. Validate the ranking against current literature and propose improvements while staying STRICTLY within the scope of the provided focus areas.
+
+**Review & Refinement Process:**
+
+1. □ **Validate Ranking** - Use WebSearch to verify:
+   - Are the Elo scores justified by current research landscape?
+   - Has recent work (2024-2026) shifted priorities?
+   - Are there overlooked papers that would change rankings?
+
+2. □ **Assess Each Focus Area** against 7 dimensions:
    - Methodological soundness
    - Logical consistency
    - Alignment with established knowledge
@@ -155,15 +171,24 @@ Provide rigorous scientific peer review of the ranked research focus areas.
    - Explanatory power
    - Novelty assessment
 
-4. □ For top 3 ranked areas, provide:
-   - Concrete next steps
-   - Potential pitfalls
-   - Suggested resources/collaborations
+3. □ **Propose Ranking Adjustments** (if warranted):
+   - Suggest re-ordering with justification from literature
+   - Identify focus areas that should merge or split
+   - Argue for promoting/demoting specific areas based on evidence
 
-5. □ Argue for promoting one lower-ranked area if warranted
+4. □ **Add Recommendations** for each tier:
+   - **Pursue tier**: Concrete next steps, key papers to read, potential collaborators
+   - **Refine tier**: What's missing, what experiments would clarify value
+   - **Defer tier**: Conditions under which to revisit
+   - **Eliminate tier**: Why to avoid, alternative framings
 
-**Severity Classification:**
-- Critical: Would invalidate the ranking
+5. □ **Produce Refined Output:**
+   - Updated ranking table with reviewer adjustments
+   - Justification for any changes (with citations)
+   - Risk assessment for top 3 areas
+
+**Severity Classification for Issues:**
+- Critical: Would invalidate the ranking approach
 - Major: Requires revision before proceeding
 - Minor: Note for consideration
 
@@ -171,10 +196,12 @@ Provide rigorous scientific peer review of the ranked research focus areas.
 - Ranked Focus Areas: {ranked-focus-areas.md}
 - Original Summary: {research-summary.md}
 
-Provide constructive, actionable feedback.
+**Output:** Write refined ranking and recommendations to `peer-review.md`
+
+⚠️ CONSTRAINT: Do NOT introduce new focus areas outside the original scope. All refinements must relate to the existing ranking.
 ```
 
-**Validation:** Ensure all 7 dimensions evaluated, verdict provided.
+**Validation:** Ensure all 7 dimensions evaluated, ranking adjustments justified with evidence, recommendations provided per tier.
 
 ---
 
